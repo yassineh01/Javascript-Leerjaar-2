@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{
+            padding: 0;
+            margin: 0;
+        }
+        .tabs {
+          
+            box-shadow: 0px 4px 5px -2px rgba(190, 37, 37, 0.5); /* Nieuw: schaduw */
+            display: flex; /* Nieuw: maak een flex container */
+            width: 70%;
+            background-color: #f5f5f5; /* Nieuw: achtergrondkleur */
+
+        }
+        .tab-button {
+            padding: 5px 10px;
+            color: white;
+            margin-bottom: -3px;
+            background-color: rgb(123, 117, 117); /* Nieuw: achtergrondkleur */
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            flex: 1; /* Nieuw: verdeel de beschikbare ruimte gelijkmatig */
+            box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.5); /* Toegevoegd: schaduw */
+        }
+        .tab-button:hover {
+            background-color: #f5f5f5; /* Aangepast: achtergrondkleur op hover */
+        }
+        .tab-button[aria-selected="true"] {
+            color: #0066cc;
+            background-color: white; /* Aangepast: achtergrondkleur als geselecteerd */
+            border-top: 3px solid #0066cc; /* Aangepast: border-top */
+        }
+        .tab-content {
+            display: none;
+    color: rgb(69, 65, 61);
+            background-color: rgba(236, 223, 202, 0.664);
+            padding: 12px;
+            box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.5); /* Toegevoegd: schaduw */
+        }
+        [aria-selected="true"] ~ .tab-content {
+            display: block;
+        }
+        .cent{
+            max-width: 600px;
+            height: 600px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="cent">
+    <div class="tabs">
+        <button class="tab-button" id="tab-button-1" aria-selected="true" onclick="changeTab(1)">
+           Tab 1
+        </button>
+        <button class="tab-button" id="tab-button-2" onclick="changeTab(2)">
+           Tab 2
+        </button>
+    </div>
+    <div class="tab-content" id="tab-content-1">
+        <h1>Tab 1</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nobis dolores ipsum expedita nisi ratione deleniti officia, possimus maxime repellat ad provident illo ipsa voluptates saepe eum. Libero, cum sapiente.
+        </p>
+    </div>
+    <div class="tab-content" id="tab-content-2">
+        <h1>Tab 2</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nobis dolores ipsum expedita nisi ratione deleniti officia, possimus maxime repellat ad provident illo ipsa voluptates saepe eum. Libero, cum sapiente.
+        </p>
+    </div>
+    
+    </div>
+    <script>
+        function changeTab(tabId) {
+            // Verberg alle tab-content elementen
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // Toon de geselecteerde tab-content
+            document.querySelector(`#tab-content-${tabId}`).style.display = 'block';
+
+            // Deselecteer alle tab-buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.removeAttribute('aria-selected');
+                button.style.color = '';
+                button.style.backgroundColor = '';
+                button.style.borderBottom = '';
+                button.style.borderTop = ''; // Verwijder de border-top
+            });
+
+            // Selecteer de geselecteerde tab-button
+            const selectedButton = document.getElementById(`tab-button-${tabId}`);
+            selectedButton.setAttribute('aria-selected', 'true');
+            selectedButton.style.color = '#0066cc';
+            selectedButton.style.borderTop = '3px solid #0066cc'; // Aangepast: border-top
+            selectedButton.style.backgroundColor = 'white'; // Nieuw: achtergrondkleur
+        }
+
+        document.getElementById('tab-button-1').click();
+    </script>
+</body>
+</html>
+
+

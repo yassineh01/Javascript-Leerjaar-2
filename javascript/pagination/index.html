@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylee.css">
+    <title>Document</title>
+   
+</head>
+<body>
+    <div class="slider">
+        <div class="slide">
+            <div class="midden">
+            <h3>Eerste stelling</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Illo deserunt molestias provident illum .</p>
+                <div class="centeren" >
+            <label for="vraag1-juist">Juist</label>
+            <input type="radio" id="vraag1-juist" name="vraag1" value="1">
+            <label for="vraag1-onjuist">Onjuist</label>
+            <input type="radio" id="vraag1-onjuist" name="vraag1" value="2">
+            <label for="vraag1-weetniet">Weet ik niet</label>
+            <input type="radio" id="vraag1-weetniet" name="vraag1" value="3">
+        </div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="midden">
+            <h3>Tweede stelling</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Illo deserunt molestias provident illum .</p>
+           <div class="centeren">
+            <label for="vraag1-juist">Juist</label>
+            <input type="radio" id="vraag1-juist" name="vraag1" value="1">
+            <label for="vraag1-onjuist">Onjuist</label>
+            <input type="radio" id="vraag1-onjuist" name="vraag1" value="2">
+            <label for="vraag1-weetniet">Weet ik niet</label>
+            <input type="radio" id="vraag1-weetniet" name="vraag1" value="3">
+        </div>
+        </div>
+        </div>
+        <div class="slide">
+            <div class="midden">
+            <h3>Derde stelling</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Illo deserunt molestias provident illum .</p>
+                <div class="centeren">
+            <label for="vraag1-juist">Juist</label>
+            <input type="radio" id="vraag1-juist" name="vraag1" value="1">
+            <label for="vraag1-onjuist">Onjuist</label>
+            <input type="radio" id="vraag1-onjuist" name="vraag1" value="2">
+            <label for="vraag1-weetniet">Weet ik niet</label>
+            <input type="radio" id="vraag1-weetniet" name="vraag1" value="3">
+        </div>
+        </div>
+        </div>
+        <!-- Control buttons -->
+        <button class="btn" id="btn-prev">&#10594;</button>
+        <button class="btn" id="btn-next">&#10596;</button>
+    </div>
+    <div class="last-radio-inputs">
+        <div class="radio-input">
+            <input type="radio" id="last-rad1" name="last-radiom" checked>
+            <label for="last-rad1">1</label>
+        </div>
+        <div class="radio-input">
+            <input type="radio" id="last-rad2" name="last-radiom">
+            <label for="last-rad2">2</label>
+        </div>
+        <div class="radio-input">
+            <input type="radio" id="last-rad3" name="last-radiom">
+            <label for="last-rad3">3</label>
+        </div>
+        <div class="line"></div>
+    </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".slide");
+    const radios = document.querySelectorAll(".radio-input input[name='last-radiom']");
+    const line = document.querySelector(".line");
+
+    let maxSlide = slides.length - 1;
+    let curSlide = 0;
+
+    slides.forEach((slide, indx) => {
+        slide.style.transform = `translateX(${indx * 100}%)`;
+    });
+
+    let nextSlide = document.querySelector("#btn-next");
+    nextSlide.addEventListener("click", function () {
+        if (curSlide === maxSlide) {
+            curSlide = 0;
+        } else {
+            curSlide++;
+        }
+
+        updateSlider();
+    });
+
+    const prevSlide = document.querySelector("#btn-prev");
+    prevSlide.addEventListener("click", function () {
+        if (curSlide === 0) {
+            curSlide = maxSlide;
+        } else {
+            curSlide--;
+        }
+
+        updateSlider();
+    });
+
+    radios.forEach((radio, indx) => {
+        radio.addEventListener("click", function () {
+            curSlide = indx;
+            updateSlider();
+        });
+    });
+
+    function updateSlider() {
+        slides.forEach((slide, indx) => {
+            slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
+        });
+
+        // Verwijder de klasse 'active' van alle radio-inputs
+        radios.forEach((radio) => {
+            radio.parentElement.classList.remove('active');
+        });
+
+        // Voeg de klasse 'active' toe aan de huidige radio-input
+        radios[curSlide].parentElement.classList.add('active');
+        
+        // Maak de vorige cirkel groen en de huidige cirkel groen
+        for (let i = 0; i <= curSlide; i++) {
+            radios[i].parentElement.classList.add('active');
+        }
+    }
+});
+
+
+</script>
+
+</body>
+</html>
